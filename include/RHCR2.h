@@ -23,10 +23,10 @@ private:
 
   // generate random pair
   // since the seed is generated via
-  Position generateRandomPair(int z1, int z2);
+  Position generateRandomPair(int z);
 
   // calculates strength of x,y coord with pre-defined test formula
-  int ffrog(Position pos);
+  double ffrog(Position pos);
 
   // default is -1 until an experiment is ran
   int fRan = -1;
@@ -40,7 +40,7 @@ public:
   std::string getFRan();
   
   // return results of experiment, as well number of times f is ran
-  std::vector<Position> runExperiment(Position sp, int z, int p);
+  std::vector<Position> runExperiment(Position sp, double z, int p);
 };
 
 #endif // RHCR2_H
