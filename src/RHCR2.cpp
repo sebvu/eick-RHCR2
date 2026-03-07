@@ -14,14 +14,16 @@ Position RHCR2::generateRandomNeighborPair(const Position &curr_pos,
 double RHCR2::ffrog(const Position &pos) {
   int x = pos.x, y = pos.y;
 
+  fRan += 1;
+
   return (x * cos(sqrt(abs(x + y + 1))) * sin(sqrt(abs(y - x + 1)))) +
          ((1 + y) * sin(sqrt(abs(x + y + 1))) * cos(sqrt(abs(y - x + 1))));
 }
 
-Position RHCR2::RHC(const Position &curr_pos, const double &z, const int &p) {
+RHCR2::Sol RHCR2::RHC(const Position &curr_pos, const double &z, const int &p) {
   double originalMin = ffrog(curr_pos);
   double currMin = originalMin;
-  Position currMinPos = curr_pos; 
+  Position currMinPos = curr_pos;
 
   for (int i = 0; i < p; i++) {
     // calculate potential new min, and see if its lower than curr min
@@ -32,19 +34,23 @@ Position RHCR2::RHC(const Position &curr_pos, const double &z, const int &p) {
       currMinPos = potentialNewMinPosition;
     }
   }
-  
-  return currMin == originalMin ? RHC(currMinPos, z, p) : currMinPos;
+
+  return currMin == originalMin ? RHC(currMinPos, z, p)
+                                : Sol(currMinPos, currMin);
 };
 
 std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
                                              const double &z, const int &p) {
+  fRan = 0; // set to counting start
+
   Position curr_pos = sp;
   std::vector<Sol> ret;
   int zDiv = 1;
 
   for (int i = 0; i < 3; i++) {
-    Sol sol; // essentially (RHC, f(RHC))
-    Position new_pos = RHC(curr_pos, z / zDiv, p);
+    Sol sol = RHC(curr_pos, z / zDiv, p);
+    ret.push_back(sol);
+    zDiv *= 20;
   }
 
   return ret;

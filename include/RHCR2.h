@@ -38,12 +38,12 @@ private:
   // will compare curr_pos ffrog value p times
   // if there is a ffrog value after p iterations, recurse with currMinPos.
   // keep going until currMin == originalMin
-  Position RHC(const Position &curr_pos, const double &z, int const &p);
+  Sol RHC(const Position &curr_pos, const double &z, int const &p);
 
 public:
   RHCR2();
 
-  // return results of experiment, as well number of times f is ran
+  // will run 3 iterations of RHC, and return results of each in Sol type
   std::vector<Sol> runExperiment(const Position &sp, const double &z,
                                  const int &p);
 
