@@ -2,6 +2,7 @@
 #define RHCR2_H
 
 #include <random>
+#include <utility>
 
 struct Position {
   int x, y;
@@ -19,28 +20,35 @@ struct Position {
 class RHCR2 {
 private:
   // ensure seed is static with all iterations for program lifetime
-  static std::mt19937 gen(std::random_device);
+  static std::mt19937 gen;
+  static unsigned int seed;
 
-  // generate random pair
-  // since the seed is generated via
-  Position generateRandomPair(int z);
-
-  // calculates strength of x,y coord with pre-defined test formula
-  double ffrog(Position pos);
+  // type for solution
+  using Sol = std::pair<Position, double>;
 
   // default is -1 until an experiment is ran
   int fRan = -1;
 
+  // generate random neighbor pair
+  Position generateRandomNeighborPair(Position &curr_pos, int z);
+
+  // calculates strength of x,y coord with pre-defined test formula
+  double ffrog(const Position &pos);
+
+  Position RHC(const Position &curr_p, const double &z, int const &p);
+
 public:
   RHCR2();
 
-  // print seed
+  // return results of experiment, as well number of times f is ran
+  std::vector<Sol> runExperiment(const Position &sp, const double &z,
+                                                         const int &p);
+
+  // get seed
   std::string getSeed();
 
+  // get number of f calls
   std::string getFRan();
-  
-  // return results of experiment, as well number of times f is ran
-  std::vector<Position> runExperiment(Position sp, double z, int p);
 };
 
 #endif // RHCR2_H
