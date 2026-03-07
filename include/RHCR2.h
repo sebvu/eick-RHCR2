@@ -30,7 +30,7 @@ private:
   int fRan = -1;
 
   // generate random neighbor pair
-  Position generateRandomNeighborPair(Position &curr_pos, int z);
+  Position generateRandomNeighborPair(const Position &curr_pos, const int &z);
 
   // calculates strength of x,y coord with pre-defined test formula
   double ffrog(const Position &pos);

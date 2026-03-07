@@ -4,10 +4,10 @@
 unsigned int RHCR2::seed = std::random_device{}();
 std::mt19937 RHCR2::gen(seed);
 
-Position RHCR2::generateRandomNeighborPair(Position &curr_pos, int z) {
+Position RHCR2::generateRandomNeighborPair(const Position &curr_pos, const int &z) {
   std::uniform_int_distribution<> x(z * -1, z), y(z * -1, z);
 
-  return Position{.x = x(gen), .y = y(gen)};
+  return Position{.x = curr_pos.x + x(gen), .y = curr_pos.y + y(gen)};
 }
 
 double RHCR2::ffrog(const Position &pos) {
@@ -18,10 +18,11 @@ double RHCR2::ffrog(const Position &pos) {
 }
 
 Position RHCR2::RHC(const Position &curr_p, const double &z, const int &p) {
-  double lowestffrog;
+  double lowestVal;
 };
 
-std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp, const double &z, const int &p) {
+std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
+                                             const double &z, const int &p) {
   Position curr_sp;
   std::vector<Sol> ret;
   int zDiv = 1;
