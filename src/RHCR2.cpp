@@ -4,7 +4,8 @@
 unsigned int RHCR2::seed = std::random_device{}();
 std::mt19937 RHCR2::gen(seed);
 
-Position RHCR2::generateRandomNeighborPair(const Position &curr_pos, const int &z) {
+Position RHCR2::generateRandomNeighborPair(const Position &curr_pos,
+                                           const int &z) {
   std::uniform_int_distribution<> x(z * -1, z), y(z * -1, z);
 
   return Position{.x = curr_pos.x + x(gen), .y = curr_pos.y + y(gen)};
@@ -17,18 +18,33 @@ double RHCR2::ffrog(const Position &pos) {
          ((1 + y) * sin(sqrt(abs(x + y + 1))) * cos(sqrt(abs(y - x + 1))));
 }
 
-Position RHCR2::RHC(const Position &curr_p, const double &z, const int &p) {
-  double lowestVal;
+Position RHCR2::RHC(const Position &curr_pos, const double &z, const int &p) {
+  double originalMin = ffrog(curr_pos);
+  double currMin = originalMin;
+  Position currMinPos = curr_pos; 
+
+  for (int i = 0; i < p; i++) {
+    // calculate potential new min, and see if its lower than curr min
+    Position potentialNewMinPosition = generateRandomNeighborPair(curr_pos, z);
+    double potentialNewMin = ffrog(potentialNewMinPosition);
+    if (potentialNewMin < currMin) {
+      currMin = potentialNewMin;
+      currMinPos = potentialNewMinPosition;
+    }
+  }
+  
+  return currMin == originalMin ? RHC(currMinPos, z, p) : currMinPos;
 };
 
 std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
                                              const double &z, const int &p) {
-  Position curr_sp;
+  Position curr_pos = sp;
   std::vector<Sol> ret;
   int zDiv = 1;
 
   for (int i = 0; i < 3; i++) {
-    Sol sol;
+    Sol sol; // essentially (RHC, f(RHC))
+    Position new_pos = RHC(curr_pos, z / zDiv, p);
   }
 
   return ret;

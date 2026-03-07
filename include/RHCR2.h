@@ -35,14 +35,17 @@ private:
   // calculates strength of x,y coord with pre-defined test formula
   double ffrog(const Position &pos);
 
-  Position RHC(const Position &curr_p, const double &z, int const &p);
+  // will compare curr_pos ffrog value p times
+  // if there is a ffrog value after p iterations, recurse with currMinPos.
+  // keep going until currMin == originalMin
+  Position RHC(const Position &curr_pos, const double &z, int const &p);
 
 public:
   RHCR2();
 
   // return results of experiment, as well number of times f is ran
   std::vector<Sol> runExperiment(const Position &sp, const double &z,
-                                                         const int &p);
+                                 const int &p);
 
   // get seed
   std::string getSeed();
