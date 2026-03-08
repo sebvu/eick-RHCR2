@@ -8,11 +8,11 @@ std::mt19937 RHCR2::gen(seed);
 
 std::ofstream resultsFile("README.md", std::ios::app);
 
-Position RHCR2::generateRandomNeighborPair(const Position &curr_pos,
+Position RHCR2::generateRandomNeighborPair(const Position &currMinPos,
                                            const int &z) {
   std::uniform_int_distribution<> x(z * -1, z), y(z * -1, z);
 
-  return Position{.x = curr_pos.x + x(gen), .y = curr_pos.y + y(gen)};
+  return Position{.x = currMinPos.x + x(gen), .y = currMinPos.y + y(gen)};
 }
 
 double RHCR2::ffrog(const Position &pos) {
@@ -31,7 +31,7 @@ RHCR2::Sol RHCR2::RHC(const Position &curr_pos, const double &z, const int &p) {
 
   for (int i = 0; i < p; i++) {
     // calculate potential new min, and see if its lower than curr min
-    Position potentialNewMinPosition = generateRandomNeighborPair(curr_pos, z);
+    Position potentialNewMinPosition = generateRandomNeighborPair(currMinPos, z);
     double potentialNewMin = ffrog(potentialNewMinPosition);
     if (potentialNewMin < currMin) {
       currMin = potentialNewMin;
