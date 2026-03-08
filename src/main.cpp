@@ -1,5 +1,4 @@
 #include <RHCR2.h>
-#include <fstream>
 #include <iostream>
 
 int main() {
