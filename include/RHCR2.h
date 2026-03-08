@@ -36,6 +36,9 @@ private:
   // reseed for new experiment set
   static void reseed();
 
+  // ensure numbers are capped at 512
+  void cap512(int &pnt);
+
   // generate random neighbor pair
   Position generateRandomNeighborPair(const Position &currMinPos, const int &z);
 

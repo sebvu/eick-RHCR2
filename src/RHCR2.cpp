@@ -2,6 +2,7 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
 
 // happy existing definition :)
 RHCR2::RHCR2() {}
@@ -16,11 +17,23 @@ void RHCR2::reseed() {
   gen.seed(seed);
 }
 
+void RHCR2::cap512(int &pnt) {
+  if (pnt > 512)
+    pnt = 512;
+  if (pnt < -512)
+    pnt = -512;
+}
+
 Position RHCR2::generateRandomNeighborPair(const Position &currMinPos,
                                            const int &z) {
   std::uniform_int_distribution<> x(z * -1, z), y(z * -1, z);
 
-  return Position{.x = currMinPos.x + x(gen), .y = currMinPos.y + y(gen)};
+  int xp = currMinPos.x + x(gen);
+  int yp = currMinPos.y + y(gen);
+  cap512(xp);
+  cap512(yp);
+
+  return Position{.x = xp, .y = yp};
 }
 
 double RHCR2::ffrog(const Position &pos) {
@@ -48,13 +61,19 @@ RHCR2::Sol RHCR2::RHC(const Position &curr_pos, const double &z, const int &p) {
     }
   }
 
-  return currMin == originalMin ? RHC(currMinPos, z, p)
-                                : Sol(currMinPos, currMin);
+  return currMin == originalMin ? Sol(currMinPos, currMin)
+                                : RHC(currMinPos, z, p);
 };
 
 std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
                                              const double &z, const int &p) {
   fRan = 0; // set to 0 for counting
+
+  if (sp.x > 512 || sp.y > 512 || sp.x < -512 || sp.y < -512) {
+    throw std::domain_error("sp.x: " + std::to_string(sp.x) +
+                            " | sp.y: " + std::to_string(sp.y) +
+                            ". Please ensure x,y element of [-512, 512]");
+  }
 
   Position curr_pos = sp;
   std::vector<Sol> ret;
@@ -64,17 +83,15 @@ std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
               << "- sp: **(" << curr_pos.x << ", " << curr_pos.y << ")**"
               << std::endl
               << "- z: **" << z << "**" << std::endl
-              << "- p **" << p
-              << "**";
+              << "- p **" << p << "**";
 
-      for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 3; i++) {
     Sol sol = RHC(curr_pos, z / zDiv, p);
     ret.push_back(sol);
 
     // new values for new run
     curr_pos = sol.first;
     zDiv *= 20; // will multiply to 20, then 400
-
   }
 
   return ret;
