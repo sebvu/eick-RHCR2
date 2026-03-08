@@ -85,6 +85,13 @@ int main() {
   }
 
   r->rin() << std::endl << "## My Experiment Sets" << std::endl;
+  r->reseed();
+  r->rin() << std::endl
+           << "## SEED FOR STUDENT EXPERIMENT SET 1: " << r->getSeed() << std::endl;
   r->runExperiment(Position{.x = -512, .y = -444.995}, 8, 1000);
+
+  r->reseed();
+  r->rin() << std::endl
+           << "## SEED FOR STUDENT EXPERIMENT SET 2: " << r->getSeed() << std::endl;
   r->runExperiment(Position{.x = -498.546, .y = 404.83}, 8, 1000);
 }
