@@ -8,7 +8,7 @@ This project uses Makefile.
 
 ```sh
 git clone git@github.com:sebvu/eick-RHCR2.git (or https, doesn't matter)
-cd ./eick-RHCR2.git
+cd ./eick-RHCR2
 make
 cd ./bin
 ./exec-main
