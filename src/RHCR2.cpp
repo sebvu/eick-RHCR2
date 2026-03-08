@@ -41,7 +41,7 @@ RHCR2::Sol RHCR2::RHC(const Position &curr_pos, const double &z, const int &p) {
 
 std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
                                              const double &z, const int &p) {
-  fRan = 0; // set to counting start
+  fRan = 0; // set to 0 for counting
 
   Position curr_pos = sp;
   std::vector<Sol> ret;
