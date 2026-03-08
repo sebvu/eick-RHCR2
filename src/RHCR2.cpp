@@ -1,8 +1,12 @@
 #include "RHCR2.h"
 #include <cmath>
+#include <iostream>
+#include <fstream>
 
 unsigned int RHCR2::seed = std::random_device{}();
 std::mt19937 RHCR2::gen(seed);
+
+std::ofstream resultsFile("README.md", std::ios::app);
 
 Position RHCR2::generateRandomNeighborPair(const Position &curr_pos,
                                            const int &z) {

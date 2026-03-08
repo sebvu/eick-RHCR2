@@ -1,6 +1,7 @@
 #ifndef RHCR2_H
 #define RHCR2_H
 
+#include <fstream>
 #include <random>
 #include <utility>
 
@@ -22,6 +23,9 @@ private:
   // ensure seed is static with all iterations for program lifetime
   static std::mt19937 gen;
   static unsigned int seed;
+
+  // the output file, always a RESULTS.md
+  static std::ofstream resultsFile;
 
   // type for solution
   using Sol = std::pair<Position, double>;
