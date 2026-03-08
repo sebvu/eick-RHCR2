@@ -17,6 +17,6 @@ int main() {
 
 
   // the output file for results
-  RHCR2 r; // please check class definition
+  RHCR2 *r = new RHCR2(); // please check class definition
 
 }

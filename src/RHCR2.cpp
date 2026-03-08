@@ -70,4 +70,4 @@ std::string RHCR2::getSeed() { return std::to_string(seed); };
 
 std::string RHCR2::getFRan() { return std::to_string(fRan); };
 
-std::ofstream &rin() { return resultsFile; };
+std::ofstream &RHCR2::rin() { return resultsFile; };

@@ -60,8 +60,11 @@ public:
   // get number of f calls
   std::string getFRan();
 
-  // user ability to insert into ifstream file
+  // user ability to insert into ofstream file
   std::ofstream &rin();
+
+  // clear file
+  static void clearResultsFile();
 };
 
 #endif // RHCR2_H
