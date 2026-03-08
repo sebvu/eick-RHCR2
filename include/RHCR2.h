@@ -33,6 +33,9 @@ private:
   // default is -1 until an experiment is ran
   int fRan = -1;
 
+  // reseed for new experiment set
+  static void reseed();
+
   // generate random neighbor pair
   Position generateRandomNeighborPair(const Position &currMinPos, const int &z);
 

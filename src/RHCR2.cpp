@@ -1,12 +1,17 @@
 #include "RHCR2.h"
 #include <cmath>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 unsigned int RHCR2::seed = std::random_device{}();
 std::mt19937 RHCR2::gen(seed);
 
 std::ofstream resultsFile("README.md", std::ios::app);
+
+void RHCR2::reseed() {
+  seed = std::random_device{}();
+  gen.seed(seed);
+}
 
 Position RHCR2::generateRandomNeighborPair(const Position &currMinPos,
                                            const int &z) {
@@ -31,7 +36,8 @@ RHCR2::Sol RHCR2::RHC(const Position &curr_pos, const double &z, const int &p) {
 
   for (int i = 0; i < p; i++) {
     // calculate potential new min, and see if its lower than curr min
-    Position potentialNewMinPosition = generateRandomNeighborPair(currMinPos, z);
+    Position potentialNewMinPosition =
+        generateRandomNeighborPair(currMinPos, z);
     double potentialNewMin = ffrog(potentialNewMinPosition);
     if (potentialNewMin < currMin) {
       currMin = potentialNewMin;
