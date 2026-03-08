@@ -75,20 +75,37 @@ std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
   std::vector<Sol> ret;
   int zDiv = 1;
 
-  resultsFile << "##### Pre-RHC initial result" << std::endl
+  resultsFile << std::endl
+              << "---\n#### EXPERIMENT" << std::endl
+              << "**Initial**" << std::endl
               << "- sp: **(" << curr_pos.x << ", " << curr_pos.y << ")**"
               << std::endl
-              << "- z: **" << z << "**" << std::endl
-              << "- p **" << p << "**";
+              << "- z: **" << z / zDiv << "**" << std::endl
+              << "- *(const)* p: **" << p << "**" << std::endl
+              << std::endl;
 
   for (int i = 0; i < 3; i++) {
     Sol sol = RHC(curr_pos, z / zDiv, p);
     ret.push_back(sol);
 
+    resultsFile << std::endl << "iter " << i + 1 << ", sol: {(" << sol.first.x << ", "
+                << sol.first.y << "), " << sol.second << "}. sp: ("
+                << curr_pos.x << ", " << curr_pos.y << "). z: (" << z / zDiv
+                << "), current fRuns: (" << fRan << ")" << std::endl;
+
     // new values for new run
     curr_pos = sol.first;
     zDiv *= 20; // will multiply to 20, then 400
   }
+
+  resultsFile << std::endl
+              << "**Final**" << std::endl
+              << "- sp: **(" << curr_pos.x << ", " << curr_pos.y << ")**"
+              << std::endl
+              << "- z: **" << z / zDiv << "**" << std::endl
+              << "- *(const)* p: **" << p << "**" << std::endl
+              << "- total fRuns: **" << fRan << "**" << std::endl
+              << "---" << std::endl;
 
   return ret;
 };
@@ -97,7 +114,6 @@ void RHCR2::reseed() {
   seed = std::random_device{}();
   gen.seed(seed);
 }
-
 
 std::string RHCR2::getSeed() { return std::to_string(seed); };
 

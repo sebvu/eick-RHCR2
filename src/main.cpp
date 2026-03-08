@@ -24,7 +24,10 @@ int main() {
   RHCR2 *r = new RHCR2(); // please check class definition
 
   r->rin()
-      << "# AUTOMATICALLY GENERATED RESULTS REPORT" << std::endl
+      << "# AUTOMATICALLY GENERATED RHCR2 RESULTS REPORT" << std::endl
+      << std::endl
+      << "- made by Jester <3" << std::endl
+      << std::endl
       << "## Pre-list of experiments:" << std::endl
       << std::endl
       << "These are the main experiments, as per 4368-T2, that will be "
@@ -48,44 +51,34 @@ int main() {
       << "- **13:** sp = (-510, 400), z = 12, p = 150" << std::endl
       << "- **14:** sp = (-510, 400), z = 12, p = 400" << std::endl
       << "- **15:** sp = (-510, 400), z = 60, p = 150" << std::endl
-      << "- **16:** sp = (-510, 400), z = 60, p = 400";
+      << "- **16:** sp = (-510, 400), z = 60, p = 400" << std::endl;
 
   for (int i = 0; i < 2; i++) {
     if (i == 1) // only reseed for second run to avoid unecessary reseed
       r->reseed();
 
     r->rin() << std::endl
-             << std::endl
-             << "### SEED " << i + 1 << ": " << r->getSeed() << std::endl
-             << std::endl;
+             << "## SEED " << i + 1 << ": " << r->getSeed() << std::endl;
 
-    r->rin() << std::endl
-             << "##### -300, -500 series experiments" << std::endl
-             << std::endl;
+    r->rin() << std::endl << "### -300, -500 series experiments" << std::endl;
     r->runExperiment(Position{.x = -300, .y = -500}, 12, 150);
     r->runExperiment(Position{.x = -300, .y = -500}, 12, 400);
     r->runExperiment(Position{.x = -300, .y = -500}, 60, 150);
     r->runExperiment(Position{.x = -300, .y = -500}, 60, 400);
 
-    r->rin() << std::endl
-             << "##### 0, 0 series experiments" << std::endl
-             << std::endl;
+    r->rin() << std::endl << "### 0, 0 series experiments" << std::endl;
     r->runExperiment(Position{.x = 0, .y = 0}, 12, 150);
     r->runExperiment(Position{.x = 0, .y = 0}, 12, 400);
     r->runExperiment(Position{.x = 0, .y = 0}, 60, 150);
     r->runExperiment(Position{.x = 0, .y = 0}, 60, 400);
 
-    r->rin() << std::endl
-             << "##### -222, 222 series experiments" << std::endl
-             << std::endl;
+    r->rin() << std::endl << "### -222, 222 series experiments" << std::endl;
     r->runExperiment(Position{.x = -222, .y = 222}, 12, 150);
     r->runExperiment(Position{.x = -222, .y = 222}, 12, 400);
     r->runExperiment(Position{.x = -222, .y = 222}, 60, 150);
     r->runExperiment(Position{.x = -222, .y = 222}, 60, 400);
 
-    r->rin() << std::endl
-             << "##### -510, 400 series experiments" << std::endl
-             << std::endl;
+    r->rin() << std::endl << "### -510, 400 series experiments" << std::endl;
     r->runExperiment(Position{.x = -510, .y = 400}, 12, 150);
     r->runExperiment(Position{.x = -510, .y = 400}, 12, 400);
     r->runExperiment(Position{.x = -510, .y = 400}, 60, 150);
