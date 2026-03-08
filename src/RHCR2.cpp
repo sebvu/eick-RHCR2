@@ -58,8 +58,8 @@ RHCR2::Sol RHCR2::RHC(const Position &curr_pos, const double &z, const int &p) {
     }
   }
 
-  return currMin == originalMin ? Sol(currMinPos, currMin)
-                                : RHC(currMinPos, z, p);
+  return std::abs(currMin - originalMin) < 1e-9 ? Sol(currMinPos, currMin)
+                                                : RHC(currMinPos, z, p);
 };
 
 std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
