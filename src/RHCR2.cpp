@@ -26,7 +26,7 @@ Position RHCR2::generateRandomNeighborPair(const Position &currMinPos,
 double RHCR2::ffrog(const Position &pos) {
   int x = pos.x, y = pos.y;
 
-  fRan += 1;
+  fRan += 1; // count number of times ffrog is called
 
   return (x * cos(sqrt(abs(x + y + 1))) * sin(sqrt(abs(y - x + 1)))) +
          ((1 + y) * sin(sqrt(abs(x + y + 1))) * cos(sqrt(abs(y - x + 1))));
@@ -60,10 +60,21 @@ std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
   std::vector<Sol> ret;
   int zDiv = 1;
 
-  for (int i = 0; i < 3; i++) {
+  resultsFile << "##### Pre-RHC initial result" << std::endl
+              << "- sp: **(" << curr_pos.x << ", " << curr_pos.y << ")**"
+              << std::endl
+              << "- z: **" << z << "**" << std::endl
+              << "- p **" << p
+              << "**";
+
+      for (int i = 0; i < 3; i++) {
     Sol sol = RHC(curr_pos, z / zDiv, p);
     ret.push_back(sol);
+
+    // new values for new run
+    curr_pos = sol.first;
     zDiv *= 20; // will multiply to 20, then 400
+
   }
 
   return ret;

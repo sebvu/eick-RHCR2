@@ -22,4 +22,7 @@ int main() {
 
   RHCR2 *r = new RHCR2(); // please check class definition
 
+  r->runExperiment(Position{ .x = -300, .y = -500 }, 12, 150);
+
+
 }
