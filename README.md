@@ -14,6 +14,8 @@ cd ./bin
 ./exec-main
 ```
 
+If done correctly, a RESULTS.md will appear in `./bin` after executing `./exec-main`. Not the most beautiful format in the world, but it works.
+
 ## Extra
 
 If you plan to look at the code, and are using clangd LSP or some other LSP that's heuristics rely on a compile_commands.json, use `bear` and run the following command.
