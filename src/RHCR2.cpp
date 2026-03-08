@@ -110,6 +110,7 @@ std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
               << "- strength: **" << ffrog(curr_pos) << "**" << std::endl
               << "- z: **" << z / zDiv << "**" << std::endl
               << "- *(const)* p: **" << p << "**" << std::endl
+              << "- total fRuns: **" << fRan << "**" << std::endl
               << "----------" << std::endl;
 
   return ret;

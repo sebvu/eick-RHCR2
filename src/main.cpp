@@ -85,6 +85,6 @@ int main() {
   }
 
   r->rin() << std::endl << "## My Experiment Sets" << std::endl;
-  r->runExperiment(Position{.x = 0, .y = 0}, 50, 800);
-  r->runExperiment(Position{.x = -510, .y = 400}, 20, 700);
+  r->runExperiment(Position{.x = -512, .y = -444.995}, 8, 1000);
+  r->runExperiment(Position{.x = -498.546, .y = 404.83}, 8, 1000);
 }
