@@ -2,6 +2,7 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <random>
 #include <stdexcept>
 
 // happy existing definition :)
@@ -12,7 +13,7 @@ std::mt19937 RHCR2::gen(seed);
 
 std::ofstream RHCR2::resultsFile("RESULTS.md", std::ios::out);
 
-void RHCR2::cap512(int &pnt) {
+void RHCR2::cap512(double &pnt) {
   if (pnt > 512)
     pnt = 512;
   if (pnt < -512)
@@ -20,11 +21,11 @@ void RHCR2::cap512(int &pnt) {
 }
 
 Position RHCR2::generateRandomNeighborPair(const Position &currMinPos,
-                                           const int &z) {
-  std::uniform_int_distribution<> x(z * -1, z), y(z * -1, z);
+                                           const double &z) {
+  std::uniform_real_distribution<double> x(z * -1, z), y(z * -1, z);
 
-  int xp = currMinPos.x + x(gen);
-  int yp = currMinPos.y + y(gen);
+  double xp = currMinPos.x + x(gen);
+  double yp = currMinPos.y + y(gen);
   cap512(xp);
   cap512(yp);
 
@@ -32,12 +33,13 @@ Position RHCR2::generateRandomNeighborPair(const Position &currMinPos,
 }
 
 double RHCR2::ffrog(const Position &pos) {
-  int x = pos.x, y = pos.y;
+  double x = pos.x, y = pos.y;
 
   fRan += 1; // count number of times ffrog is called
 
-  return (x * cos(sqrt(abs(x + y + 1))) * sin(sqrt(abs(y - x + 1)))) +
-         ((1 + y) * sin(sqrt(abs(x + y + 1))) * cos(sqrt(abs(y - x + 1))));
+  return (x * cos(sqrt(std::abs(x + y + 1))) * sin(sqrt(std::abs(y - x + 1)))) +
+         ((1 + y) * sin(sqrt(std::abs(x + y + 1))) *
+          cos(sqrt(std::abs(y - x + 1))));
 }
 
 RHCR2::Sol RHCR2::RHC(const Position &curr_pos, const double &z, const int &p) {
@@ -73,7 +75,7 @@ std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
 
   Position curr_pos = sp;
   std::vector<Sol> ret;
-  int zDiv = 1;
+  double zDiv = 1;
 
   resultsFile << std::endl
               << "---\n#### EXPERIMENT" << std::endl
@@ -88,14 +90,16 @@ std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
     Sol sol = RHC(curr_pos, z / zDiv, p);
     ret.push_back(sol);
 
-    resultsFile << std::endl << "iter " << i + 1 << ", sol: {(" << sol.first.x << ", "
+    resultsFile << std::endl
+                << "iter " << i + 1 << ", sol: {(" << sol.first.x << ", "
                 << sol.first.y << "), " << sol.second << "}. sp: ("
                 << curr_pos.x << ", " << curr_pos.y << "). z: (" << z / zDiv
                 << "), current fRuns: (" << fRan << ")" << std::endl;
 
     // new values for new run
     curr_pos = sol.first;
-    zDiv *= 20; // will multiply to 20, then 400
+    if (i != 2)
+      zDiv *= 20; // will multiply to 20, then 400
   }
 
   resultsFile << std::endl

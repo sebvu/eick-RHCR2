@@ -6,7 +6,7 @@
 #include <utility>
 
 struct Position {
-  int x, y;
+  double x, y;
 };
 
 /*
@@ -34,10 +34,10 @@ private:
   int fRan = -1;
 
   // ensure numbers are capped at 512
-  void cap512(int &pnt);
+  void cap512(double &pnt);
 
   // generate random neighbor pair
-  Position generateRandomNeighborPair(const Position &currMinPos, const int &z);
+  Position generateRandomNeighborPair(const Position &currMinPos, const double &z);
 
   // calculates strength of x,y coord with pre-defined test formula
   double ffrog(const Position &pos);
