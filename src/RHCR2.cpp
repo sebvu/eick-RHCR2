@@ -12,11 +12,6 @@ std::mt19937 RHCR2::gen(seed);
 
 std::ofstream RHCR2::resultsFile("RESULTS.md", std::ios::out);
 
-void RHCR2::reseed() {
-  seed = std::random_device{}();
-  gen.seed(seed);
-}
-
 void RHCR2::cap512(int &pnt) {
   if (pnt > 512)
     pnt = 512;
@@ -69,6 +64,7 @@ std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
                                              const double &z, const int &p) {
   fRan = 0; // set to 0 for counting
 
+  // ensure the domain x,y element of [-512, 512] is respected
   if (sp.x > 512 || sp.y > 512 || sp.x < -512 || sp.y < -512) {
     throw std::domain_error("sp.x: " + std::to_string(sp.x) +
                             " | sp.y: " + std::to_string(sp.y) +
@@ -96,6 +92,12 @@ std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
 
   return ret;
 };
+
+void RHCR2::reseed() {
+  seed = std::random_device{}();
+  gen.seed(seed);
+}
+
 
 std::string RHCR2::getSeed() { return std::to_string(seed); };
 

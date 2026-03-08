@@ -33,9 +33,6 @@ private:
   // default is -1 until an experiment is ran
   int fRan = -1;
 
-  // reseed for new experiment set
-  static void reseed();
-
   // ensure numbers are capped at 512
   void cap512(int &pnt);
 
@@ -56,6 +53,9 @@ public:
   // will run 3 iterations of RHC, and return results of each in Sol type
   std::vector<Sol> runExperiment(const Position &sp, const double &z,
                                  const int &p);
+
+  // reseed for new experiment set
+  static void reseed();
 
   // get seed
   std::string getSeed();
