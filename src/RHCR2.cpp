@@ -3,10 +3,13 @@
 #include <fstream>
 #include <iostream>
 
+// happy existing definition :)
+RHCR2::RHCR2() {}
+
 unsigned int RHCR2::seed = std::random_device{}();
 std::mt19937 RHCR2::gen(seed);
 
-std::ofstream resultsFile("README.md", std::ios::app);
+std::ofstream RHCR2::resultsFile("RESULTS.md", std::ios::out);
 
 void RHCR2::reseed() {
   seed = std::random_device{}();
