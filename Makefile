@@ -31,6 +31,6 @@ $(BIN_DIR):
 
 # Clean
 clean:
-	rm -rf $(OBJ_DIR)/*.o $(TARGET)
+	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/*
 
 .PHONY: all clean
