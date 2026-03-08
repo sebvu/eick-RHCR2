@@ -69,3 +69,5 @@ std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
 std::string RHCR2::getSeed() { return std::to_string(seed); };
 
 std::string RHCR2::getFRan() { return std::to_string(fRan); };
+
+std::ofstream &rin() { return resultsFile; };
