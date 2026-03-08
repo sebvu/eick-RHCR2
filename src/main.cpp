@@ -17,10 +17,9 @@ int main() {
   p = 150 and 400; z = 12 and 60
   */
 
+  // the output file will be in RESULTS.md located in your /bin folder in creation of RHCR2 obj
+  // um.. no clue if it'll consistently generate the file.. don't have checks for that lol
 
-  // the output file for results
   RHCR2 *r = new RHCR2(); // please check class definition
-
-  r->rin() << "hi";
 
 }
