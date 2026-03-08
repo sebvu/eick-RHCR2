@@ -50,7 +50,7 @@ std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
   for (int i = 0; i < 3; i++) {
     Sol sol = RHC(curr_pos, z / zDiv, p);
     ret.push_back(sol);
-    zDiv *= 20;
+    zDiv *= 20; // will multiply to 20, then 400
   }
 
   return ret;
