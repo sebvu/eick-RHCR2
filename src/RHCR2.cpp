@@ -78,14 +78,13 @@ std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
   double zDiv = 1;
 
   resultsFile << std::endl
-              << "---\n#### EXPERIMENT" << std::endl
+              << "----------\n#### EXPERIMENT" << std::endl
               << "**Initial**" << std::endl
               << "- sp: **(" << curr_pos.x << ", " << curr_pos.y << ")**"
               << std::endl
               << "- strength: **" << ffrog(curr_pos) << "**" << std::endl
               << "- z: **" << z / zDiv << "**" << std::endl
-              << "- *(const)* p: **" << p << "**" << std::endl
-              << std::endl;
+              << "- *(const)* p: **" << p << "**" << std::endl;
 
   for (int i = 0; i < 3; i++) {
     Sol sol = RHC(curr_pos, z / zDiv, p);
@@ -104,14 +103,14 @@ std::vector<RHCR2::Sol> RHCR2::runExperiment(const Position &sp,
   }
 
   resultsFile << std::endl
-              << "---\n#### EXPERIMENT" << std::endl
+              << "#### EXPERIMENT" << std::endl
               << "**Final**" << std::endl
               << "- sp: **(" << curr_pos.x << ", " << curr_pos.y << ")**"
               << std::endl
               << "- strength: **" << ffrog(curr_pos) << "**" << std::endl
               << "- z: **" << z / zDiv << "**" << std::endl
               << "- *(const)* p: **" << p << "**" << std::endl
-              << std::endl;
+              << "----------" << std::endl;
 
   return ret;
 };
